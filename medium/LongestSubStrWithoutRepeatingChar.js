@@ -1,33 +1,29 @@
-let s = "aab"
+function lengthOfLongestSubstring(s) {
+    let maxLength = 0;
+    let start = 0;
+    const charIndexMap = {};
 
+    for (let end = 0; end < s.length; end++) {
+        const char = s[end];
 
-/**
- * @param {string} s
- * @return {number}
- */
-var lengthOfLongestSubstring = function (s) {
-    debugger;
-    let ss = "";
-    let t = "";
-    let f = false;
-
-    for (let i = 0; i < s.length; i++) {
-
-
-        if (t.includes(s[i])) {
-            if (t.length > ss.length) {
-                ss = t
-                f = true;
-            }
-            t = t.substring(i + 1)
+        if (charIndexMap[char] !== undefined && charIndexMap[char] >= start) {
+            start = charIndexMap[char] + 1;
         }
-        t += s[i];
-        if (!f) ss = t;
+
+        charIndexMap[char] = end;
+        const currentLength = end - start + 1;
+        maxLength = Math.max(maxLength, currentLength);
     }
 
-    return ss.length;
+    return maxLength;
+}
 
-};
+// Example usage:
+const s1 = "abcabcbb";
+console.log(lengthOfLongestSubstring(s1)); // Output: 3
 
-const l = lengthOfLongestSubstring(s)
-console.log("Length is: ", l)
+const s2 = "bbbbb";
+console.log(lengthOfLongestSubstring(s2)); // Output: 1
+
+const s3 = "pwwkew";
+console.log(lengthOfLongestSubstring(s3)); // Output: 3
